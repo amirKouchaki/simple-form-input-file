@@ -6,5 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Input:file</title>
   </head>
-  <body></body>
+  <body>
+    <form action="" method="post">
+      <input type="file" name="img_file" id="image" />
+      <img width="480" />
+      <br />
+      <br />
+      <button type="submit">Send image</button>
+    </form>
+  </body>
+
+  <script>
+    const input = document.querySelector("input");
+    const img = document.querySelector("img");
+
+    input.oninput = (event) => {
+      if (event.target.files[0].type !== "image/png") {
+        alert("Import a image file.");
+        input.value = "";
+      } else {
+        img.src = URL.createObjectURL(event.target.files[0]);
+      }
+    };
+  </script>
 </html>
