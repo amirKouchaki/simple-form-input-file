@@ -35,15 +35,23 @@
     };
 
     submit.onsubmit = (event) => {
-      let http = new XMLHttpRequest();
-      http.setRequestHeader("Content-Type", "application/json");
-      let jSon = JSON.stringify({
-        name: `${file.name}`,
-        type: `${file.type}`,
-        size: `${file.size}`,
-      });
-      http.open("POST", url, true);
-      http.send(jSon);
+      (async () => {
+        const rawResponse = await fetch(url, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: `${file.name}`,
+            type: `${file.type}`,
+            size: `${file.size}`,
+          }),
+        });
+        const content = await rawResponse.json();
+
+        console.log(content);
+      })();
     };
   </script>
 </html>
